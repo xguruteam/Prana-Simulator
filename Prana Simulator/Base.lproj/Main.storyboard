@@ -1,24 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BUY-dQ-A8L">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="dbx-Y4-2jM">
+            <objects>
+                <navigationController id="BUY-dQ-A8L" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jJb-Dh-DZJ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3ll-bG-uId"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RsI-pP-WzR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-676" y="134"/>
+        </scene>
+        <!--Prana Simulator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Prana_Simulator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFU-ZQ-o4p">
+                                <rect key="frame" x="137.5" y="114" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.64705882349999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="4GO-Wh-Yaq"/>
+                                    <constraint firstAttribute="height" constant="100" id="oO4-Oq-zsM"/>
+                                </constraints>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="onStartStop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9bV-6u-yCw"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.90000000000000002" maxValue="1.1000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="5GE-l2-9xg">
+                                <rect key="frame" x="18" y="597" width="339" height="31"/>
+                                <connections>
+                                    <action selector="onBreathingValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2J4-7Z-NTF"/>
+                                </connections>
+                            </slider>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5GE-l2-9xg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7t9-ok-Ccv"/>
+                            <constraint firstItem="lFU-ZQ-o4p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="DES-bQ-8H4"/>
+                            <constraint firstItem="lFU-ZQ-o4p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JCQ-9I-flG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5GE-l2-9xg" secondAttribute="trailing" constant="20" id="Jd2-LL-7rE"/>
+                            <constraint firstItem="5GE-l2-9xg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fGE-Hq-Ao8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5GE-l2-9xg" secondAttribute="bottom" constant="40" id="nO2-bU-xbc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Prana Simulator" largeTitleDisplayMode="always" id="FfJ-7k-W24"/>
+                    <connections>
+                        <outlet property="breathingSlider" destination="5GE-l2-9xg" id="rle-YC-qHi"/>
+                        <outlet property="btStartStop" destination="lFU-ZQ-o4p" id="Mk8-y4-thq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
         </scene>
     </scenes>
 </document>
