@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var btStartStop: UIButton!
     @IBOutlet weak var breathingSlider: UISlider!
+    @IBOutlet weak var btUpright: UIButton!
     
     
     var status: Bool = false
@@ -42,6 +43,7 @@ class ViewController: UIViewController {
     var pos = 0
     let mtu = 20
     var buff: Data!
+    var needSendUpright = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,7 @@ class ViewController: UIViewController {
         btStartStop.alpha = 0.5
         
         breathingSlider.isHidden = true
+        btUpright.isHidden = true
     }
     
     @IBAction func onStartStop(_ sender: Any) {
@@ -81,6 +84,10 @@ class ViewController: UIViewController {
     @IBAction func onBreathingValueChanged(_ sender: UISlider) {
     }
     
+    @IBAction func onUpright(_ sender: Any) {
+        needSendUpright = true
+    }
+    
     func startAdvertising() {
         let service_rx = CBMutableService(type: CBUUID(string: RX_SERVICE_UUID), primary: true)
         service_rx.characteristics = [self.char_rx, self.char_tx]
@@ -105,6 +112,7 @@ class ViewController: UIViewController {
         isSending = true
         DispatchQueue.main.async {
             self.breathingSlider.isHidden = false
+            self.btUpright.isHidden = false
         }
         
         if self.motion.isAccelerometerAvailable {
@@ -127,19 +135,37 @@ class ViewController: UIViewController {
                 y = data.acceleration.y
                 z = data.acceleration.z
             }
-            let a = "20hz"
-            let b = "\(self.breathingSlider.value)"
-            let c = "\(x)"
-            let d = "\(y)"
-            let e = "\(z)"
-            let f = "0.0"
-            let g = "99"
-            let response = "\(a),\(b),\(c),\(d),\(e),\(f),\(g)"
-            guard let raw = response.data(using: .utf8) else {
-                return
-            }
             
-            self.buff = raw
+            if self.needSendUpright {
+                let a = "Upright"
+                let c = "\(x)"
+                let d = "\(y)"
+                let e = "\(z)"
+                let response = "\(a),\(c),\(d),\(e)"
+                guard let raw = response.data(using: .utf8) else {
+                    return
+                }
+                
+                self.buff = raw
+                self.needSendUpright = false
+                
+            }
+            else {
+                let a = "20hz"
+                let b = "\(self.breathingSlider.value)"
+                let c = "\(x)"
+                let d = "\(y)"
+                let e = "\(z)"
+                let f = "0.0"
+                let g = "99"
+                let response = "\(a),\(b),\(c),\(d),\(e),\(f),\(g)"
+                guard let raw = response.data(using: .utf8) else {
+                    return
+                }
+                
+                self.buff = raw
+                
+            }
             
             self.startBuff()
         }
@@ -153,6 +179,7 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.breathingSlider.isHidden = true
+            self.btUpright.isHidden = true
         }
         
         self.motion.stopAccelerometerUpdates()

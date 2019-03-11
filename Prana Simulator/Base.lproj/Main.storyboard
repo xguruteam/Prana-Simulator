@@ -52,6 +52,14 @@
                                     <action selector="onBreathingValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2J4-7Z-NTF"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qF-f2-lEo">
+                                <rect key="frame" x="20" y="533" width="335" height="34"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.64705882349999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Upright"/>
+                                <connections>
+                                    <action selector="onUpright:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bbj-eg-w1N"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -59,8 +67,11 @@
                             <constraint firstItem="lFU-ZQ-o4p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="DES-bQ-8H4"/>
                             <constraint firstItem="lFU-ZQ-o4p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JCQ-9I-flG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5GE-l2-9xg" secondAttribute="trailing" constant="20" id="Jd2-LL-7rE"/>
+                            <constraint firstItem="5GE-l2-9xg" firstAttribute="top" secondItem="1qF-f2-lEo" secondAttribute="bottom" constant="30" id="Y57-5K-3Hc"/>
                             <constraint firstItem="5GE-l2-9xg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fGE-Hq-Ao8"/>
+                            <constraint firstItem="1qF-f2-lEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fVa-G7-Sjf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5GE-l2-9xg" secondAttribute="bottom" constant="40" id="nO2-bU-xbc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1qF-f2-lEo" secondAttribute="trailing" constant="20" id="yPF-jI-4Op"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -68,6 +79,7 @@
                     <connections>
                         <outlet property="breathingSlider" destination="5GE-l2-9xg" id="rle-YC-qHi"/>
                         <outlet property="btStartStop" destination="lFU-ZQ-o4p" id="Mk8-y4-thq"/>
+                        <outlet property="btUpright" destination="1qF-f2-lEo" id="UFp-p9-F2R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
