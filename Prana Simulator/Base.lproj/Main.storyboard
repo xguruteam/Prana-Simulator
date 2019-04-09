@@ -60,18 +60,68 @@
                                     <action selector="onUpright:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bbj-eg-w1N"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KYc-6r-Y1M">
+                                <rect key="frame" x="163" y="222" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onTestChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="erE-H2-FHd"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPM-0J-gOl">
+                                <rect key="frame" x="112.5" y="310" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.64705882349999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3UA-kb-UBC"/>
+                                    <constraint firstAttribute="width" constant="30" id="wsY-xY-JCa"/>
+                                </constraints>
+                                <state key="normal" title="1"/>
+                                <connections>
+                                    <action selector="onTestTypeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KdT-bH-JGW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bab-Bn-4HP">
+                                <rect key="frame" x="172.5" y="310" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.64705882349999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="LmP-9f-xwO"/>
+                                    <constraint firstAttribute="height" constant="30" id="rBe-89-pk6"/>
+                                </constraints>
+                                <state key="normal" title="2"/>
+                                <connections>
+                                    <action selector="onTestTypeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QFP-M5-bAg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2I-3Q-dTz">
+                                <rect key="frame" x="232.5" y="310" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.64705882349999999" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="U7Q-Cf-1R9"/>
+                                    <constraint firstAttribute="height" constant="30" id="aZm-Uj-AVZ"/>
+                                </constraints>
+                                <state key="normal" title="3"/>
+                                <connections>
+                                    <action selector="onTestTypeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xDU-UH-1yL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5GE-l2-9xg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7t9-ok-Ccv"/>
                             <constraint firstItem="lFU-ZQ-o4p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="DES-bQ-8H4"/>
+                            <constraint firstItem="bab-Bn-4HP" firstAttribute="leading" secondItem="ZPM-0J-gOl" secondAttribute="trailing" constant="30" id="FhC-Br-H03"/>
+                            <constraint firstItem="S2I-3Q-dTz" firstAttribute="centerY" secondItem="bab-Bn-4HP" secondAttribute="centerY" id="Hry-X5-HBB"/>
                             <constraint firstItem="lFU-ZQ-o4p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JCQ-9I-flG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5GE-l2-9xg" secondAttribute="trailing" constant="20" id="Jd2-LL-7rE"/>
+                            <constraint firstItem="ZPM-0J-gOl" firstAttribute="centerY" secondItem="bab-Bn-4HP" secondAttribute="centerY" id="MhH-LB-XUN"/>
+                            <constraint firstItem="bab-Bn-4HP" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PU3-r5-J8i"/>
                             <constraint firstItem="5GE-l2-9xg" firstAttribute="top" secondItem="1qF-f2-lEo" secondAttribute="bottom" constant="30" id="Y57-5K-3Hc"/>
+                            <constraint firstItem="bab-Bn-4HP" firstAttribute="top" secondItem="KYc-6r-Y1M" secondAttribute="bottom" constant="57" id="bIf-cB-XlE"/>
+                            <constraint firstItem="KYc-6r-Y1M" firstAttribute="top" secondItem="lFU-ZQ-o4p" secondAttribute="bottom" constant="8" id="ceL-YK-gO6"/>
+                            <constraint firstItem="KYc-6r-Y1M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="etT-1j-MrG"/>
                             <constraint firstItem="5GE-l2-9xg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fGE-Hq-Ao8"/>
                             <constraint firstItem="1qF-f2-lEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fVa-G7-Sjf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5GE-l2-9xg" secondAttribute="bottom" constant="40" id="nO2-bU-xbc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1qF-f2-lEo" secondAttribute="trailing" constant="20" id="yPF-jI-4Op"/>
+                            <constraint firstItem="S2I-3Q-dTz" firstAttribute="leading" secondItem="bab-Bn-4HP" secondAttribute="trailing" constant="30" id="zEx-x7-VrS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -80,6 +130,10 @@
                         <outlet property="breathingSlider" destination="5GE-l2-9xg" id="rle-YC-qHi"/>
                         <outlet property="btStartStop" destination="lFU-ZQ-o4p" id="Mk8-y4-thq"/>
                         <outlet property="btUpright" destination="1qF-f2-lEo" id="UFp-p9-F2R"/>
+                        <outlet property="btn1" destination="ZPM-0J-gOl" id="U7v-Ev-zgH"/>
+                        <outlet property="btn2" destination="bab-Bn-4HP" id="laP-Og-qGB"/>
+                        <outlet property="btn3" destination="S2I-3Q-dTz" id="NYP-fz-Z5M"/>
+                        <outlet property="switchTest" destination="KYc-6r-Y1M" id="yeK-Zw-3pd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

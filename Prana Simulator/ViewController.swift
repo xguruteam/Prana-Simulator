@@ -12,8 +12,10 @@ import CoreMotion
 
 class ViewController: UIViewController {
     
-    let PM_LOCAL_NAME = "Prana Simulator"
-    
+//    let PM_LOCAL_NAME = "Prana Tech2"
+//    let PM_LOCAL_NAME = "iPhone"
+    let PM_LOCAL_NAME = "Prana Tech"
+
     let RX_SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 //    let RX_CHAR_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
 //    let TX_CHAR_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
@@ -24,7 +26,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var btStartStop: UIButton!
     @IBOutlet weak var breathingSlider: UISlider!
     @IBOutlet weak var btUpright: UIButton!
+    @IBOutlet weak var switchTest: UISwitch!
     
+    @IBOutlet weak var btn1: UIButton!
+    @IBOutlet weak var btn2: UIButton!
+    @IBOutlet weak var btn3: UIButton!
     
     var status: Bool = false
     let peripheralManager = CBPeripheralManager(delegate: nil, queue: nil, options: [CBPeripheralManagerOptionShowPowerAlertKey: true])
@@ -45,6 +51,11 @@ class ViewController: UIViewController {
     var buff: Data!
     var needSendUpright = false
     
+    var testDataOffest: Int = 0
+    var isTesting = false
+    var testType = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -57,6 +68,10 @@ class ViewController: UIViewController {
         
         breathingSlider.isHidden = true
         btUpright.isHidden = true
+        
+        switchTest.isOn = false
+        onTestChange(switchTest)
+        onTestTypeChange(btn1)
     }
     
     @IBAction func onStartStop(_ sender: Any) {
@@ -69,6 +84,11 @@ class ViewController: UIViewController {
             stopAdvertising()
             
             startAdvertising()
+            
+            switchTest.isEnabled = false
+            btn1.isEnabled = false
+            btn2.isEnabled = false
+            btn3.isEnabled = false
         }
         else {
             self.status = false
@@ -78,14 +98,51 @@ class ViewController: UIViewController {
             stopAdvertising()
             stopSend()
             
+            switchTest.isEnabled = true
+            btn1.isEnabled = true
+            btn2.isEnabled = true
+            btn3.isEnabled = true
         }
     }
     
     @IBAction func onBreathingValueChanged(_ sender: UISlider) {
     }
     
+    @IBAction func onTestChange(_ sender: UISwitch) {
+        if sender.isOn {
+            isTesting = true
+            btn1.isHidden = false
+            btn2.isHidden = false
+            btn3.isHidden = false
+        }
+        else {
+            isTesting = false
+            btn1.isHidden = true
+            btn2.isHidden = true
+            btn3.isHidden = true
+        }
+    }
+    
     @IBAction func onUpright(_ sender: Any) {
         needSendUpright = true
+    }
+    
+    @IBAction func onTestTypeChange(_ sender: UIButton) {
+        testType = sender.tag - 1
+        btn1.alpha = 0.5
+        btn2.alpha = 0.5
+        btn3.alpha = 0.5
+        
+        switch sender.tag {
+        case 1:
+            btn1.alpha = 1.0
+        case 2:
+            btn2.alpha = 1.0
+        case 3:
+            btn3.alpha = 1.0
+        default:
+            break
+        }
     }
     
     func startAdvertising() {
@@ -120,56 +177,74 @@ class ViewController: UIViewController {
             self.motion.startAccelerometerUpdates()
         }
         
-        self.sendTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { (_) in
-            
-            if self.buffTimer != nil {
-                print("buff is not ready")
+        testDataOffest = 0
+        
+        self.sendTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(sendLoop), userInfo: nil, repeats: true)
+        
+    }
+    
+    @objc func sendLoop() {
+        if self.buffTimer != nil {
+            print("buff is not ready")
+            return
+        }
+        
+        var x = 0.0
+        var y = 0.0
+        var z = 0.0
+        var s = Double(self.breathingSlider.value)
+        var r = 0.0
+        
+        if let data = self.motion.accelerometerData {
+            x = data.acceleration.x
+            y = data.acceleration.y
+            z = data.acceleration.z
+        }
+        
+        if self.needSendUpright {
+            let a = "Upright"
+            let c = "\(x)"
+            let d = "\(y)"
+            let e = "\(z)"
+            let response = "\(a),\(c),\(d),\(e)"
+            guard let raw = response.data(using: .utf8) else {
                 return
             }
             
-            var x = 0.0
-            var y = 0.0
-            var z = 0.0
-            if let data = self.motion.accelerometerData {
-                x = data.acceleration.x
-                y = data.acceleration.y
-                z = data.acceleration.z
+            self.buff = raw
+            self.needSendUpright = false
+            
+        }
+        else {
+            if isTesting {
+                let data = testData[testType]
+                let count = data["xSensor"]!.count
+                if self.testDataOffest < count {
+                    x = data["xSensor"]![self.testDataOffest]
+                    y = data["ySensor"]![self.testDataOffest]
+                    z = data["zSensor"]![self.testDataOffest]
+                    s = data["BreathSensor"]![self.testDataOffest]
+                    r = data["RotationSensor"]![self.testDataOffest]
+                    self.testDataOffest += 1
+                }
+            }
+            let a = "20hz"
+            let b = "\(s)"
+            let c = "\(x)"
+            let d = "\(y)"
+            let e = "\(z)"
+            let f = "\(r)"
+            let g = "99"
+            let response = "\(a),\(b),\(c),\(d),\(e),\(f),\(g)"
+            guard let raw = response.data(using: .utf8) else {
+                return
             }
             
-            if self.needSendUpright {
-                let a = "Upright"
-                let c = "\(x)"
-                let d = "\(y)"
-                let e = "\(z)"
-                let response = "\(a),\(c),\(d),\(e)"
-                guard let raw = response.data(using: .utf8) else {
-                    return
-                }
-                
-                self.buff = raw
-                self.needSendUpright = false
-                
-            }
-            else {
-                let a = "20hz"
-                let b = "\(self.breathingSlider.value)"
-                let c = "\(x)"
-                let d = "\(y)"
-                let e = "\(z)"
-                let f = "0.0"
-                let g = "99"
-                let response = "\(a),\(b),\(c),\(d),\(e),\(f),\(g)"
-                guard let raw = response.data(using: .utf8) else {
-                    return
-                }
-                
-                self.buff = raw
-                
-            }
+            self.buff = raw
             
-            self.startBuff()
         }
         
+        self.startBuff()
     }
     
     func stopSend() {
