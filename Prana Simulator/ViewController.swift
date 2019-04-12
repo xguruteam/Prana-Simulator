@@ -216,18 +216,18 @@ class ViewController: UIViewController {
             
         }
         else {
-            if isTesting {
-                let data = testData[testType]
-                let count = data["xSensor"]!.count
-                if self.testDataOffest < count {
-                    x = data["xSensor"]![self.testDataOffest]
-                    y = data["ySensor"]![self.testDataOffest]
-                    z = data["zSensor"]![self.testDataOffest]
-                    s = data["BreathSensor"]![self.testDataOffest]
-                    r = data["RotationSensor"]![self.testDataOffest]
-                    self.testDataOffest += 1
-                }
-            }
+//            if isTesting {
+//                let data = testData[testType]
+//                let count = data["xSensor"]!.count
+//                if self.testDataOffest < count {
+//                    x = data["xSensor"]![self.testDataOffest]
+//                    y = data["ySensor"]![self.testDataOffest]
+//                    z = data["zSensor"]![self.testDataOffest]
+//                    s = data["BreathSensor"]![self.testDataOffest]
+//                    r = data["RotationSensor"]![self.testDataOffest]
+//                    self.testDataOffest += 1
+//                }
+//            }
             let a = "20hz"
             let b = "\(s)"
             let c = "\(x)"
